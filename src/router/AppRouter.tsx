@@ -43,4 +43,8 @@ export const router = createBrowserRouter([
             }
         ]
     }
-])
+],
+    {
+        basename: '/heroes-app/'
+    }
+)
