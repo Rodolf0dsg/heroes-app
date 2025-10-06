@@ -10,13 +10,14 @@ import { use, useMemo } from "react";
 import { useHeroSummary } from "@/heroes/hooks/useHeroSummary";
 import { usePaginatedHero } from "@/heroes/hooks/usePaginatedHero";
 import { FavoriteHeroContext } from "@/heroes/context/FavoriteHeroesContext";
+import { CustomLoader } from "@/components/ui/custom/CustomLoader";
 
 
 
 export const HomePage = () => {
 
   const [ searchParams, setSearchParams ] = useSearchParams();
-  const { favoriteCount, favorites } = use( FavoriteHeroContext );
+  const { favoriteCount, favorites }      = use( FavoriteHeroContext );
 
   const activeTab = searchParams.get('tab') ?? 'all';
   const page = searchParams.get('page') ?? 1;
@@ -32,7 +33,7 @@ export const HomePage = () => {
 
 
 
-  const { data: heroesResponse } = usePaginatedHero({page: +page, limit: +limit, category});
+  const { data: heroesResponse, isPending } = usePaginatedHero({page: +page, limit: +limit, category});
   
   const { data: summary } = useHeroSummary();
 
@@ -48,7 +49,7 @@ export const HomePage = () => {
         <CustomBreadCrums currentPage="Heroes"/>
 
         {/* Stats Dashboard */}
-        <HeroStats/>    
+        <HeroStats/>
 
         {/* Tabs */}
         <Tabs value={ selectedTab } className="mb-8">
@@ -103,19 +104,33 @@ export const HomePage = () => {
           </TabsList>
 
           <TabsContent value="all">
-            <HeroGrid heroes={ heroesResponse?.heroes ?? []}/>
+            {(isPending)
+              ? <CustomLoader /> 
+              : <HeroGrid heroes={ heroesResponse?.heroes ?? []}/>}
           </TabsContent>
 
            <TabsContent value="favorites">
-            <HeroGrid heroes={ favorites }/>
+            {
+              (isPending)
+                ? <CustomLoader />
+                : <HeroGrid heroes={ favorites }/>
+            }
           </TabsContent>
 
           <TabsContent value="heroes">
-            <HeroGrid heroes={ heroesResponse?.heroes ?? []}/>
+            {
+              (isPending)
+                ? <CustomLoader />
+                : <HeroGrid heroes={ heroesResponse?.heroes ?? []}/>
+            }
           </TabsContent>
 
           <TabsContent value="villains">
-            <HeroGrid heroes={ heroesResponse?.heroes ?? []}/>
+            {
+              (isPending)
+                ? <CustomLoader />
+                : <HeroGrid heroes={ heroesResponse?.heroes ?? []}/>
+            }
           </TabsContent>
         </Tabs>
 

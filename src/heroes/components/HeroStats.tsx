@@ -25,7 +25,7 @@ export const HeroStats = () => {
           icon= {<Users className="h-4 w-4 text-muted-foreground" />}
         >
             <div className="text-2xl font-bold">{ summary?.totalHeroes }</div>
-            <div className="flex gap-1 mt-2">
+            <div className="flex gap-1 mt-2 flex-col md:flex-row">
               <Badge variant="secondary" className="text-xs">
                 { summary?.heroCount } Heroes
               </Badge>
