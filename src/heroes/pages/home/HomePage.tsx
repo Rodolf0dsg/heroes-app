@@ -73,7 +73,7 @@ export const HomePage = () => {
                 return prev;
               })}
             >
-              <Heart className="h-4 w-4" />
+              <Heart className="h-3 w-3" />
               Favorites ({ favoriteCount })
             </TabsTrigger>
 

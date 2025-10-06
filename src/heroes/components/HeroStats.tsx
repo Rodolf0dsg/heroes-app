@@ -4,6 +4,7 @@ import { HeroStatCard } from './HeroStatCard'
 import { useHeroSummary } from '../hooks/useHeroSummary'
 import { use } from 'react'
 import { FavoriteHeroContext } from '../context/FavoriteHeroesContext'
+import { CustomLoader } from '@/components/ui/custom/CustomLoader'
 
 
 export const HeroStats = () => {
@@ -12,7 +13,7 @@ export const HeroStats = () => {
   const { favoriteCount } = use( FavoriteHeroContext );
 
   if ( !summary ) {
-    return <div>Loading...</div>
+    return <CustomLoader />
   }
 
   const percentageOfTotalFavorites = (( favoriteCount / summary?.totalHeroes ) * 100).toFixed(2);
